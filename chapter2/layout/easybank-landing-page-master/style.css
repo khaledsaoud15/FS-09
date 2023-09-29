@@ -1,0 +1,244 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  height: 80px;
+  justify-content: space-between;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 999999999;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.links a {
+  text-decoration: none;
+  color: #000;
+}
+
+.navbar button {
+  padding: 10px 40px;
+  border-radius: 80px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(to right, hsl(136, 65%, 51%), hsl(192, 70%, 51%));
+}
+
+.header {
+  height: 80vh;
+  background-color: hsl(220, 16%, 96%);
+  display: flex;
+  align-items: center;
+  padding: 80px 0 80px 80px;
+  background-image: url(images/bg-intro-desktop.svg);
+  background-repeat: no-repeat;
+  background-position: 800% 50%;
+}
+
+.right {
+  width: 70%;
+  overflow-x: hidden;
+}
+
+.left {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.left h1 {
+  font-size: 4rem;
+  width: 90%;
+  font-weight: 400;
+}
+
+.left p {
+  width: 90%;
+  font-size: 18px;
+  line-height: 30px;
+}
+
+.left button {
+  padding: 10px 40px;
+  border-radius: 80px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(to right, hsl(136, 65%, 51%), hsl(192, 70%, 51%));
+  width: 40%;
+}
+
+.p1 {
+  padding: 90px 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 80vh;
+}
+
+.p1 h1 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.p1 p {
+  width: 50%;
+  line-height: 25px;
+}
+
+.cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 30px;
+  padding: 10px;
+  width: 100%;
+}
+
+.card img {
+  width: 70px;
+  height: 70px;
+}
+
+.card h2 {
+  font-size: 20px;
+}
+
+.card span {
+  line-height: 25px;
+  opacity: 0.7;
+}
+
+.articles {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 90px 100px;
+  height: 100%;
+  background-color: hsl(220, 16%, 96%);
+}
+
+.a-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 20px;
+  width: 100%;
+}
+
+.a-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #fff;
+  height: 70vh;
+}
+
+.a-card img {
+  width: 100%;
+}
+
+.a-card span {
+  margin-left: 30px;
+  opacity: 0.7;
+  font-size: 12px;
+}
+
+.a-card h1 {
+  font-size: 20px;
+  margin-left: 30px;
+  font-weight: 400;
+}
+
+.a-card p {
+  margin: 0 30px 0 30px;
+  line-height: 25px;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.footer {
+  height: 40vh;
+  background-color: hsl(233, 26%, 24%);
+  display: flex;
+  align-items: center;
+  padding: 30px 90px;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.f-logo {
+  width: 300px;
+}
+
+.center {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.c {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: #fff;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  color: #fff;
+}
+
+.right button {
+  padding: 10px;
+  border-radius: 80px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(to right, hsl(136, 65%, 51%), hsl(192, 70%, 51%));
+}
+
+.social-media {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+svg {
+  fill: #fff;
+}
+
+svg:hover {
+  fill: hsl(136, 65%, 51%);
+  cursor: pointer;
+}
