@@ -1,0 +1,55 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 80px;
+  height: 80px;
+  background-color: #fff;
+  position: relative;
+}
+
+.menue {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.hamburger span {
+  width: 15px;
+  height: 2px;
+  background: #000;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+@media (max-width: 470px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .links {
+    position: absolute;
+    flex-direction: column;
+    left: 0%;
+    top: 100%;
+    width: 100%;
+    background: #000;
+    transition: all 0.3 linear;
+    overflow: hidden;
+  }
+}
