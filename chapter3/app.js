@@ -318,5 +318,71 @@
 
 // ARRAYS
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-console.log(arr);
+const companies = [
+  "facebook",
+  "google",
+  "amazon",
+  "oracle",
+  "apple",
+  "microsoft",
+  "IBM",
+];
+
+function checkDoubleO(companies) {
+  let temp = "";
+  for (let i = 0; i < companies.length; i++) {
+    let count = 0;
+    for (let j = 0; j < companies[i].length; j++) {
+      if (companies[i][j] === "o") {
+        count++;
+      }
+    }
+    if (count > 1) {
+      temp += companies[i] + " ";
+    }
+  }
+
+  return temp;
+}
+
+// console.log(checkDoubleO(companies));
+
+function removeMiddle(companies) {
+  let newArr = [];
+  const middle = companies[Math.floor((Math.random() * companies.length) / 2)];
+  for (let i = 0; i < companies.length; i++) {
+    if (companies[i] === middle) {
+      continue;
+    } else {
+      newArr.push(companies[i]);
+    }
+  }
+  return newArr;
+}
+
+// console.log(removeMiddle(companies));
+
+// array methods
+
+const numbers = [];
+
+numbers.push(1);
+console.log(numbers);
+
+numbers.push(2);
+console.log(numbers);
+
+numbers.push(3);
+console.log(numbers);
+
+numbers.unshift(0);
+console.log(numbers);
+
+numbers.pop();
+console.log(numbers);
+
+numbers.pop();
+console.log(numbers);
+
+numbers.shift();
+console.log(numbers);
