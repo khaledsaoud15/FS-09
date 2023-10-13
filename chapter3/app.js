@@ -366,23 +366,168 @@ function removeMiddle(companies) {
 
 const numbers = [];
 
-numbers.push(1);
-console.log(numbers);
+// numbers.push(1);
+// console.log(numbers);
 
-numbers.push(2);
-console.log(numbers);
+// numbers.push(2);
+// console.log(numbers);
 
-numbers.push(3);
-console.log(numbers);
+// numbers.push(3);
+// console.log(numbers);
 
-numbers.unshift(0);
-console.log(numbers);
+// numbers.unshift(0);
+// console.log(numbers);
 
-numbers.pop();
-console.log(numbers);
+// numbers.pop();
+// console.log(numbers);
 
-numbers.pop();
-console.log(numbers);
+// numbers.pop();
+// console.log(numbers);
 
-numbers.shift();
-console.log(numbers);
+// numbers.shift();
+// console.log(numbers);
+
+/*
+Create a function which returns the number of true values there are in an array.
+
+Examples
+countTrue([true, false, false, true, false]) ➞ 2
+
+countTrue([false, false, false, false]) ➞ 0
+
+countTrue([]) ➞ 0
+Notes
+Return 0 if given an empty array.
+All array items are of the type bool (true or false).
+*/
+
+function countTrue(arr) {
+  let counter = 0;
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === true) {
+      counter++;
+    }
+  }
+
+  return counter;
+}
+
+console.log(countTrue([false, true, false, true]));
+console.log(countTrue([false, false, false, false]));
+console.log(countTrue([]));
+
+/*
+Create a function that takes an array of numbers and return "Boom!" if the digit 7 appears in the array. Otherwise, return "there is no 7 in the array".
+
+Examples
+sevenBoom([1, 2, 3, 4, 5, 6, 7]) ➞ "Boom!"
+// 7 contains the number seven.
+
+sevenBoom([8, 6, 33, 100]) ➞ "there is no 7 in the array"
+// None of the items contain 7 within them.
+
+sevenBoom([2, 55, 60, 97, 86]) ➞ "Boom!"
+// 97 contains the number seven.
+*/
+
+function sevenBoom(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].toString().includes("7")) {
+      return "Boom!";
+    }
+  }
+
+  return "there is no 7 in the array";
+}
+
+console.log(sevenBoom([2, 7857, 125, 37, 25, 0]));
+console.log(sevenBoom([2, 85, 125, 3, 25, 0]));
+
+/*
+Given a string, reverse all the words which have odd length. The even length words are not changed.
+
+Examples
+reverseOdd("Bananas") ➞ "sananaB"
+
+reverseOdd("One two three four") ➞ "enO owt eerht four"
+
+reverseOdd("Make sure uoy only esrever sdrow of ddo length")
+➞ "Make sure you only reverse words of odd length"
+*/
+
+// "one two three four"
+// "one"=>3 => 3%2==1
+// "eno"
+// "four" => 4=>4%2==0
+// "four"
+
+function reverseOdd(str) {
+  let words = str.split(" ");
+  let newArr = [];
+  for (let i = 0; i < words.length; i++) {
+    if (words[i].length % 2 !== 0) {
+      words[i] = words[i].split("").reverse().join("");
+      newArr.push(words[i]);
+    } else {
+      newArr.push(words[i]);
+    }
+  }
+
+  return newArr.join(" ");
+}
+
+console.log(reverseOdd("one two three four"));
+console.log(reverseOdd("Make sure uoy only esrever sdrow of ddo length"));
+
+/*
+  Create a function that takes a sentence and returns the number of letters in this sentence sorted alphabetically.
+
+Output format:
+letter:count space letter:count (see examples).
+
+Special cases:
+space is NOT a letter!
+special symbols like ($ & * @ ! ' @') is NOT a letter!
+lower and upper letters IS EQUAL (A == a, B == b ... Z == z)!
+*/
+
+function checkCharCount(str) {
+  let newStr = "";
+  let alph = "abscdefghijklmnopqrstuvwxyz".split("");
+  for (let i = 0; i < alph.length; i++) {
+    for (let j = 0; j < str.length; j++) {
+      if (str[j] === alph[i]) {
+        newStr += str[j];
+      }
+    }
+  }
+
+  let res = "";
+  newStr = newStr.split("");
+  let count = 0;
+  for (let i = 0; i < newStr.length; i++) {
+    if (newStr.indexOf(newStr[i]) !== newStr.lastIndexOf(newStr[i])) {
+      let s = newStr.lastIndexOf(newStr[i]) - newStr.indexOf(newStr[i]) + 1;
+      res += newStr[i] + ":" + s + " ";
+    } else {
+      let s = newStr.lastIndexOf(newStr[i]) - newStr.indexOf(newStr[i]) + 1;
+      res += newStr[i] + ":" + s + " ";
+    }
+  }
+  let finalResult = [];
+  res = res.split(" ");
+  for (let i = 0; i < res.length; i++) {
+    if (res[i] !== res[i + 1]) {
+      finalResult.push(res[i]);
+    }
+  }
+
+  return finalResult.join(" ").trim();
+}
+
+console.log(checkCharCount("hello &&"));
+console.log(checkCharCount("baace &&"));
+console.log(checkCharCount("ba&écdééace &&"));
+console.log(checkCharCount("fksdbvlsdbvlsé(&'&(&'&(éè--&(&-è"));
+console.log(checkCharCount("brown fox jçump over the f(èence"));
