@@ -493,8 +493,9 @@ lower and upper letters IS EQUAL (A == a, B == b ... Z == z)!
 */
 
 function checkCharCount(str) {
+  str = str.toLowerCase();
   let newStr = "";
-  let alph = "abscdefghijklmnopqrstuvwxyz".split("");
+  let alph = "abcdefghijklmnopqrstuvwxyz".split("");
   for (let i = 0; i < alph.length; i++) {
     for (let j = 0; j < str.length; j++) {
       if (str[j] === alph[i]) {
@@ -505,7 +506,6 @@ function checkCharCount(str) {
 
   let res = "";
   newStr = newStr.split("");
-  let count = 0;
   for (let i = 0; i < newStr.length; i++) {
     if (newStr.indexOf(newStr[i]) !== newStr.lastIndexOf(newStr[i])) {
       let s = newStr.lastIndexOf(newStr[i]) - newStr.indexOf(newStr[i]) + 1;
@@ -526,8 +526,331 @@ function checkCharCount(str) {
   return finalResult.join(" ").trim();
 }
 
-console.log(checkCharCount("hello &&"));
-console.log(checkCharCount("baace &&"));
+console.log(checkCharCount("hello Worldd §&"));
+console.log(checkCharCount("Cheers, love! Hahaha."));
 console.log(checkCharCount("ba&écdééace &&"));
 console.log(checkCharCount("fksdbvlsdbvlsé(&'&(&'&(éè--&(&-è"));
-console.log(checkCharCount("brown fox jçump over the f(èence"));
+console.log(checkCharCount("Now, I learn JavaScript"));
+
+/*
+In this simple Kata your task is to create a function that turns a string into a Mexican Wave. You will be passed a string and you must return that string in an array where an uppercase letter is a person standing up. 
+*/
+// example :hello => [hEllo,heLlo,helLo,hellO]
+
+// function wave(word) {
+//   word = word.toLowerCase();
+//   temp = "";
+//   mexicanwave = [];
+//   for (let i = 0; i < word.length; i++) {
+//     temp = word.split("");
+//     temp[i] = temp[i].toUpperCase();
+//     mexicanwave[i] = temp.join("");
+//   }
+//   return mexicanwave;
+// }
+
+// console.log(wave("khaled"));
+
+function waveChar(text) {
+  let newArr = [];
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === " ") {
+      continue;
+    } else {
+      newArr.push(text.slice(0, i) + text[i].toUpperCase() + text.slice(i + 1));
+    }
+  }
+  return newArr;
+}
+
+console.log(waveChar("hello"));
+
+/*
+There is an array with some numbers. All numbers are equal except for one. Try to find it!
+
+findUniq([ 1, 1, 1, 2, 1, 1 ]) === 2
+findUniq([ 0, 0, 0.55, 0, 0 ]) === 0.55
+*/
+
+function findUni(arr) {
+  let index;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr.indexOf(arr[i]) === arr.lastIndexOf(arr[i])) {
+      index = arr[i];
+    }
+  }
+
+  return index;
+}
+
+console.log(findUni([1, 1, 1, 2, 1, 1, 1]));
+console.log(findUni([1, 1, 1, 1, 1, 1, 3]));
+
+// function findUniq(arr) {
+//   for (let i = 0; i < arr.length; i++) {
+//     if (i + 1 !== arr.length) {
+//       if (arr[i] === arr[i + 1]) {
+//         continue;
+//       } else {
+//         return arr[i + 1];
+//       }
+//     }
+//   }
+// }
+
+// console.log(findUniq([1, 1, 1, 2, 1, 1]));
+/*
+
+Take 2 strings s1 and s2 including only letters from a to z. Return a new sorted string, the longest possible, containing distinct letters - each taken only once - coming from s1 or s2.
+
+Examples:
+a = "xyaabbbccccdefww"
+b = "xxxxyyyyabklmopq"
+longest(a, b) -> "abcdefklmopqwxy"
+
+a = "abcdefghijklmnopqrstuvwxyz"
+longest(a, a) -> "abcdefghijklmnopqrstuvwxyz"
+*/
+
+function checkLongestChar(a, b) {
+  a = a.split("").sort().join("");
+  b = b.split("").sort().join("");
+  let tempA = "";
+  let tempB = "";
+
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] !== a[i + 1]) {
+      tempA += a[i];
+    }
+  }
+  for (let i = 0; i < b.length; i++) {
+    if (b[i] !== b[i + 1]) {
+      tempB += b[i];
+    }
+  }
+
+  if (tempA.length > tempB.length) {
+    return tempA + " is The longest";
+  } else {
+    return tempB + " is the Longest";
+  }
+}
+
+console.log(
+  checkLongestChar("xxxyyyaaabbbvvv", "jjahhagstsbabaksofkffnaiadlll")
+);
+
+/*
+Write a function toWeirdCase (weirdcase in Ruby) that accepts a string, and returns the same string with all even indexed characters in each word upper cased, and all odd indexed characters in each word lower cased. The indexing just explained is zero based, so the zero-ith index is even, therefore that character should be upper cased and you need to start over for each word.
+
+The passed in string will only consist of alphabetical characters and spaces(' '). Spaces will only be present if there are multiple words. Words will be separated by a single space(' ').
+
+Examples:
+toWeirdCase( "String" );//=> returns "StRiNg"
+toWeirdCase( "Weird string case" );//=> returns "WeIrD StRiNg CaSe" */
+
+function toWeirdCase(str) {
+  str = str.split(" ");
+  let res = "";
+  for (let i = 0; i < str.length; i++) {
+    for (let j = 0; j < str[i].length; j++) {
+      if (j % 2 !== 0) {
+        res += str[i][j].toUpperCase();
+      } else {
+        res += str[i][j];
+      }
+    }
+    res += " ";
+  }
+
+  return res;
+}
+
+console.log(toWeirdCase("hello from js"));
+
+// OBJECTS
+
+// const person = {
+//   name: "khaled",
+//   email: "khaledsaoud@gmail.com",
+//   profession: "instructor",
+// }; // empty object literal
+
+// console.log(person);
+// console.log(person.name);
+// console.log(person.email);
+// console.log(person.profession);
+
+// const person2 = person;
+
+// console.log(person2);
+
+// person2.name = "rayane";
+
+// console.log(person2);
+// console.log(person);
+
+// delete person.profession;
+
+// console.log(person);
+
+const people = {
+  p1: {
+    name: "khaled",
+  },
+  p2: {
+    name: "rayane",
+  },
+  p3: {
+    name: "ahmed",
+  },
+  p4: {
+    name: "houssem",
+  },
+};
+
+console.log(people);
+
+let x;
+
+for (x in people) {
+  console.log(people[x]);
+}
+
+const data = [
+  {
+    name: "khaled",
+    password: "*********",
+  },
+  {
+    name: "s",
+    password: "*********",
+  },
+  {
+    name: "d",
+    password: "*********",
+  },
+];
+
+const users = [
+  {
+    _id: "ab12ex",
+    username: "Alex",
+    email: "alex@alex.com",
+    password: "123123",
+    createdAt: "08/01/2020 9:00 AM",
+    isLoggedIn: false,
+  },
+  {
+    _id: "fg12cy",
+    username: "Asab",
+    email: "asab@asab.com",
+    password: "123456",
+    createdAt: "08/01/2020 9:30 AM",
+    isLoggedIn: true,
+  },
+  {
+    _id: "zwf8md",
+    username: "Brook",
+    email: "brook@brook.com",
+    password: "123111",
+    createdAt: "08/01/2020 9:45 AM",
+    isLoggedIn: true,
+  },
+  {
+    _id: "eefamr",
+    username: "Martha",
+    email: "martha@martha.com",
+    password: "123222",
+    createdAt: "08/01/2020 9:50 AM",
+    isLoggedIn: false,
+  },
+  {
+    _id: "ghderc",
+    username: "Thomas",
+    email: "thomas@thomas.com",
+    password: "123333",
+    createdAt: "08/01/2020 10:00 AM",
+    isLoggedIn: false,
+  },
+];
+
+const products = [
+  {
+    _id: "eedfcf",
+    name: "mobile phone",
+    description: "Huawei Honor",
+    price: 200,
+    ratings: [
+      { userId: "fg12cy", rate: 5 },
+      { userId: "zwf8md", rate: 4.5 },
+    ],
+    likes: [],
+  },
+  {
+    _id: "aegfal",
+    name: "Laptop",
+    description: "MacPro: System Darwin",
+    price: 2500,
+    ratings: [],
+    likes: ["fg12cy"],
+  },
+  {
+    _id: "hedfcg",
+    name: "TV",
+    description: "Smart TV:Procaster",
+    price: 400,
+    ratings: [{ userId: "fg12cy", rate: 5 }],
+    likes: ["fg12cy"],
+  },
+];
+
+function log_in(user) {
+  for (let i = 0; i < users.length; i++) {
+    if (user.email === users[i].email) {
+      if (users[i].isLoggedIn) {
+        return "You are already logged in";
+      } else {
+        return "please enter your password";
+      }
+    }
+  }
+  return "user does not exist";
+}
+
+const p = {
+  email: "martha@martha.com",
+};
+
+console.log(log_in(p));
+
+function register(user) {
+  const findUSer = users.find((u) => u.email === user.email);
+
+  if (findUSer) {
+    return "user already EXIST";
+  }
+
+  let date = new Date();
+
+  const u = {
+    _id: Math.random().toString(36).substring(2, 8),
+    username: user.username,
+    email: user.email,
+    password: user.password,
+    createdAt:
+      date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear(),
+    isLoggedIn: true,
+  };
+
+  users.push(u);
+  return users;
+}
+
+const newUser = {
+  username: "khaled",
+  email: "khaledsaaoud@gmail.com",
+  password: "pass",
+};
+
+console.log(register(newUser));
