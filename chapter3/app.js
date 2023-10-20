@@ -854,3 +854,236 @@ const newUser = {
 };
 
 console.log(register(newUser));
+
+function rateProduct(productId, userId, rating) {
+  let productItem = products.find((p) => p._id === productId);
+  const user = users.find((u) => u._id === userId);
+
+  if (!user || !productItem) {
+    return "not found";
+  }
+
+  const ratingProduct = productItem.ratings.find((r) => r.userId === user._id);
+  if (ratingProduct) {
+    ratingProduct.rate = rating;
+  } else {
+    productItem.ratings.push({ userId: user._id, rate: rating });
+  }
+
+  return products;
+}
+
+console.log(rateProduct("aegfal", "ab12ex", 5));
+console.log(rateProduct("aegfal", "ab12ex", 3.5));
+console.log(rateProduct("aegfal", "zwf8md", 4.5));
+console.log(rateProduct("aegfl", "zwf8md", 4.5));
+console.log(rateProduct("aegfal", "zwf8mde", 4.5));
+
+function averageRate(id) {
+  let sum = 0;
+  const item = products.find((p) => p._id === id);
+
+  if (!item) {
+    return "not found";
+  }
+
+  for (let i = 0; i < item.ratings.length; i++) {
+    sum += item.ratings[i].rate;
+    sum = sum / item.ratings.length;
+  }
+
+  return sum;
+}
+
+console.log(averageRate("aegfal"));
+console.log(averageRate("hedfcg"));
+
+function likeProduct(productId, userId) {
+  const product = products.find((p) => p._id === productId);
+  const user = users.find((u) => u._id === userId);
+  if (!product || !user) {
+    return "not found";
+  }
+
+  if (product.likes.includes(user._id)) {
+    product.likes.splice(product.likes.indexOf(user._id), 1);
+  } else {
+    product.likes.push(user._id);
+  }
+
+  return products;
+}
+
+console.log(likeProduct("aegfal", "ab12ex"));
+console.log(likeProduct("aegfal", "ab12ex"));
+
+/*
+Given an array of integers, find the one that appears an odd number of times.
+
+There will always be only one integer that appears an odd number of times.
+
+Examples
+[7] should return 7, because it occurs 1 time (which is odd).
+[0] should return 0, because it occurs 1 time (which is odd).
+[1,1,2] should return 2, because it occurs 1 time (which is odd).
+[0,1,0,1,0] should return 0, because it occurs 3 times (which is odd).
+[1,2,2,3,3,3,4,3,3,3,2,2,1] should return 4, because it appears 1 time (which is odd).
+*/
+
+// function FindOddTimes(Array) {
+//   let count = 0;
+//   for (let i = 0; i < Array.length; i++) {
+//     count[i] = 0;
+//     for (let j = 0; j < Array.length; j++) {
+//       if (Array[j] === Array[i]) {
+//         count++;
+//       }
+//     }
+//     if (count % 2 !== 0) {
+//       return Array[i];
+//     }
+//   }
+// }
+// console.log(FindOddTimes([1, 2, 2, 3, 3, 3, 4, 3, 3, 3, 3, 2, 2, 1]));
+
+function FindOddOccurrence(array) {
+  const occurrences = {};
+
+  for (let i = 0; i < array.length; i++) {
+    const element = array[i];
+    if (element in occurrences) {
+      occurrences[element]++;
+    } else {
+      occurrences[element] = 1;
+    }
+  }
+
+  for (const element in occurrences) {
+    if (occurrences[element] % 2 === 1) {
+      return parseInt(element);
+    }
+  }
+}
+
+amy = [1, 2, 2, 3, 3, 3, 1, 4];
+console.log(FindOddOccurrence(amy));
+
+/*
+The goal of this exercise is to convert a string to a new string where each character in the new string is "(" if that character appears only once in the original string, or ")" if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+
+Examples
+"din"      =>  "((("
+"recede"   =>  "()()()"
+"Success"  =>  ")())())"
+"(( @"     =>  "))((" 
+Notes
+Assertion messages may be unclear about what they display in some languages. If you read "...It Should encode XXX", the "XXX" is the expected result, not the input!
+*/
+
+function replaceRep(str) {
+  str = str.toLowerCase().split("");
+  let res = "";
+  for (let i = 0; i < str.length; i++) {
+    if (str.indexOf(str[i]) === str.lastIndexOf(str[i])) {
+      res += "(";
+    } else {
+      res += ")";
+    }
+  }
+
+  return res;
+}
+
+console.log(replaceRep("din"));
+console.log(replaceRep("recede"));
+console.log(replaceRep("(( @"));
+
+/*
+Check to see if a string has the same amount of 'x's and 'o's. The method must return a boolean and be case insensitive. The string can contain any char.
+
+Examples input/output:
+
+XO("ooxx") => true
+XO("xooxx") => false
+XO("ooxXm") => true
+XO("zpzpzpp") => true // when no 'x' and 'o' is present should return true
+XO("zzoo") => false
+*/
+
+function XO(str) {
+  str = str.toLowerCase();
+  let count_o = 0,
+    count_x = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === "x") {
+      count_x++;
+    } else {
+      if (str[i] === "o") {
+        count_o++;
+      }
+    }
+  }
+
+  if (count_o === count_x) {
+    return true;
+  }
+
+  return false;
+}
+
+console.log(XO("xxooxo"));
+console.log(XO("xxooxO"));
+console.log(XO("eeekko"));
+
+/*
+Write a function that takes an array of strings as an argument and returns a sorted array containing the same strings, ordered from shortest to longest.
+
+For example, if this array were passed as an argument:
+
+["Telescopes", "Glasses", "Eyes", "Monocles"]
+
+Your function would return the following array:
+
+["Eyes", "Glasses", "Monocles", "Telescopes"]
+
+All of the strings in the array passed to your function will be different lengths, so you will not have to decide how to order multiple strings of the same length.
+Your family runs a shop and have just brought a Scrolling Text Machine (http://3.imimg.com/data3/RP/IP/MY-2369478/l-e-d-multicolour-text-board-250x250.jpg) to help get some more business.
+*/
+
+function shortest(array) {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[i].length > array[j].length) {
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+      }
+    }
+  }
+
+  // array = array.sort((a, b) => a.length - b.length);
+  return array;
+}
+console.log(shortest(["Telescopes", "Glasses", "Eyes", "Monocles"]));
+
+/*
+The scroller works by replacing the current text string with a similar text string, but with the first letter shifted to the end; this simulates movement.
+
+Your father is far too busy with the business to worry about such details, so, naturally, he's making you come up with the text strings.
+
+Create a function named rotate() that accepts a string argument and returns an array of strings with each letter from the input string being rotated to the end.
+
+rotate("Hello") // => ["elloH", "lloHe", "loHel", "oHell", "Hello"]
+Note: The original string should be included in the output array. The order matters. Each element of the output array should be the rotated version of the previous element. The output array SHOULD be the same length as the input string. The function should return an empty array with a 0 length string, '', as input.
+*/
+function rotate(text) {
+  text = text.split("");
+  let array = [];
+  for (let i = 0; i < text.length; i++) {
+    text.push(text.shift());
+    array.push(text.join(""));
+  }
+  return array;
+  // return s.split("").map(e=>s = s.slice(1)+s.slice(0,1));
+}
+console.log(rotate("hello"));
