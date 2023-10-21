@@ -1087,3 +1087,289 @@ function rotate(text) {
   // return s.split("").map(e=>s = s.slice(1)+s.slice(0,1));
 }
 console.log(rotate("hello"));
+
+// ES6
+const arr = [345, 2789, 123, 567, 987];
+
+const res = arr.sort(function (a, b) {
+  return b - a;
+});
+
+console.log(res);
+
+const reduce = arr.reduce(function (a, b) {
+  return a + b;
+});
+
+console.log(reduce);
+
+const fruits = ["banana", "mango", "apple", "pineapple", "peach"];
+
+const newFruitArr = fruits.map(function (el, index) {
+  if (el.length > 5) {
+    return el;
+  }
+});
+const newFruitArr2 = fruits.filter(function (el, index) {
+  if (el.length > 5) {
+    return el;
+  }
+});
+
+console.log(newFruitArr);
+console.log(newFruitArr2);
+
+const conctat = [...arr, ...fruits];
+
+console.log(conctat);
+
+const objUser = {
+  userName: "khaled",
+  email: "khaledsaoud@gmail.com",
+  password: "**************",
+  isLoggedIn: false,
+  active: false,
+};
+
+const { password, ...others } = objUser;
+
+console.log(others);
+
+const a1 = [1, 2, 8, 3, 5];
+
+const smallest = Math.min(...a1);
+const biggest = Math.max(...a1);
+
+console.log(smallest, biggest);
+
+const user = "ahmed";
+
+const name = "hello " + user;
+const name2 = `hello ${user}`;
+
+console.log(name);
+console.log(name2);
+
+if (name.length > 3) {
+  console.log(true);
+} else {
+  console.log(false);
+}
+
+name.length > 3 ? console.log(false) : console.log(true);
+
+const arrowFucntion = (a, b) => a + b;
+
+console.log(arrowFucntion(1, 52));
+
+function sevenBoomm(arr) {
+  // for (let i = 0; i < arr.length; i++) {
+  //   if (arr[i].toString().includes("7")) {
+  //     return "Boom!";
+  //   }
+  // }
+
+  // return "there is no 7 in the array";
+  let bool = false;
+  arr.filter((el) => {
+    if (el.toString().includes("7")) {
+      bool = true;
+    }
+  });
+
+  return bool === true ? "Boom!" : "there is no 7 in the array";
+}
+
+console.log(sevenBoomm([2, 5, 4, 77, 8, 4, 7, 8]));
+console.log(sevenBoomm([2, 5, 4, 8, 4, 8]));
+
+/*
+Create a function that takes an array of strings and returns an array with only the strings that have numbers in them. If there are no strings containing numbers, return an empty array.
+
+Examples
+numInStr(["1a", "a", "2b", "b"]) ➞ ["1a", "2b"]
+
+numInStr(["abc", "abc10"]) ➞ ["abc10"]
+
+numInStr(["abc", "ab10c", "a10bc", "bcd"]) ➞ ["ab10c", "a10bc"]
+
+numInStr(["this is a test", "test1"]) ➞ ["test1"]
+*/
+
+function numInStr(arr) {
+  // const num = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  // return arr.filter((str) =>
+  //   str.split("").some((char) => num.includes(Number(char)))
+  // );
+
+  const newArr = [];
+
+  return arr.filter((el) => {
+    let count = 0;
+    el = el.split("");
+    el.map((char) => {
+      if (char.includes(Number(char))) {
+        count++;
+      }
+    });
+    if (count >= 1) {
+      return el.join("");
+    }
+  });
+}
+
+console.log(numInStr(["1cds", "fdsg", "8f", "ff", "55f"]));
+console.log(numInStr(["10bc", "abc "]));
+
+/*
+reverseOdd("Bananas") ➞ "sananaB"
+
+reverseOdd("One two three four") ➞ "enO owt eerht four"
+
+reverseOdd("Make sure uoy only esrever sdrow of ddo length")
+➞ "Make sure you only reverse words of odd length"
+ES
+*/
+
+function reverseOdd(str) {
+  return str
+    .split(" ")
+    .map((el) => (el.length % 2 !== 0 ? el.split("").reverse().join("") : el))
+    .join(" ");
+}
+
+console.log(reverseOdd("One two three four"));
+
+/*
+
+
+Create a function that takes an array and returns the most frequently occurring element contained within it.
+
+Examples
+findFrequent([3, 7, 3]) ➞ 3
+
+findFrequent([null, "hello", true, null]) ➞ null
+
+findFrequent([false, "up", "down", "left", "right", true, false]) ➞ false
+*/
+
+function findFrequent(arr) {
+  let temp = 0;
+  let res = "";
+  // for (let i = 0; i < arr.length; i++) {
+  //   let count = 0;
+  //   for (let j = 1; j < arr.length; j++) {
+  //     if (arr[i] === arr[j]) {
+  //       count++;
+  //     }
+  //     if (count > temp) {
+  //       temp = count;
+  //       res = arr[i];
+  //     }
+  //   }
+  // }
+  arr.map((element) => {
+    let count = 0;
+    arr.map((el) => {
+      if (element === el) {
+        count++;
+      }
+
+      if (count > temp) {
+        temp = count;
+        res = element;
+      }
+    });
+  });
+
+  return res;
+}
+
+console.log(findFrequent([3, 7, 3, 7, 3, 3, 7, 7]));
+
+/*
+Write a function that sorts array while keeping the array structure. Numbers should be first then letters both in ascending order.
+
+Examples
+numThenChar([
+  [1, 2, 4, 3, "a", "b"],
+  [6, "c", 5], [7, "d"],
+  ["f", "e", 8]
+]) ➞ [
+  [1, 2, 3, 4, 5, 6],
+  [7, 8, "a"],
+  ["b", "c"], ["d", "e", "f"]
+]
+
+numThenChar([
+  [1, 2, 4.4, "f", "a", "b"],
+  [0], [0.5, "d","X",3,"s"],
+  ["f", "e", 8],
+  ["p","Y","Z"],
+  [12,18]
+]) ➞ [
+  [0, 0.5, 1, 2, 3, 4.4],
+  [8],
+  [12, 18, "X", "Y", "Z"],
+  ["a", "b", "d"],
+  ["e", "f", "f"],
+  ["p", "s"]
+]
+Notes
+Test cases will contain integer and float numbers and single letters.
+*/
+
+const numThenChar = (arr) => {
+  let NumArr = [];
+  let StrArr = [];
+
+  arr.map((el) => {
+    el.map((e) => {
+      if (typeof e === "number") {
+        NumArr.push(e);
+      } else {
+        StrArr.push(e);
+      }
+    });
+  });
+
+  NumArr = NumArr.sort((a, b) => a - b);
+  StrArr = StrArr.sort();
+
+  const res = [...NumArr, ...StrArr];
+  const arr2 = [];
+
+  arr.map((el) => {
+    let length = el.length;
+    arr2.push(res.splice(0, length));
+  });
+
+  return arr2;
+
+  // let values = arr.flat();
+  // values = [
+  //   ...values.filter((v) => typeof v === "number").sort((a, b) => a - b),
+  //   ...values.filter((v) => typeof v === "string").sort(),
+  // ];
+
+  // console.log(values);
+  // return arr.map((a) => a.map((b) => values.shift()));
+};
+
+console.log(
+  numThenChar([
+    ["a", 1, 2, 3, "b"],
+    [4, 6, 5, 9],
+    ["c", "d", 10, 7, 11],
+  ])
+);
+console.log(
+  numThenChar([
+    [1, 2, 4.4, "f", "a", "b"],
+    [0],
+    [0.5, "d", "X", 3, "s"],
+    ["f", "e", 8],
+    ["p", "Y", "Z"],
+    [12, 18],
+  ])
+);
