@@ -1,0 +1,267 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+::selection {
+  background-color: #6d4ec3;
+  color: #fff;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  padding: 0 80px;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 9999999999999;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  height: 100%;
+}
+
+.cart-items {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.heart {
+  height: 20px;
+}
+
+.cart {
+  height: 20px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.links a {
+  color: #000;
+  text-decoration: none;
+  position: relative;
+}
+
+.links a::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #000;
+  transition: all 0.3s linear;
+}
+
+.links a:hover::after {
+  width: 100%;
+  transition: all 0.3s linear;
+}
+
+.cart-list,
+.wish-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  background-color: #dbdbdb;
+}
+
+.right {
+  width: 50%;
+  height: 60vh;
+}
+.left {
+  width: 50%;
+}
+
+.type {
+  margin: 10px 0;
+}
+.type-block {
+  height: 30px;
+}
+
+.galaxy {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(5px 5px rgba(0, 0, 0, 0.5));
+  transform: skew(-10deg);
+}
+
+.left button {
+  padding: 10px 25px;
+  background-color: #6d4ec3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  margin-top: 15px;
+  cursor: pointer;
+}
+
+.left button:hover {
+  background-color: #502cb5;
+}
+.left button:active {
+  background-color: #6d4ec3;
+}
+
+.prices {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.prices p {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.prices span {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #6d4ec3;
+}
+
+.header h3 {
+  color: #ff0000b7;
+  text-transform: uppercase;
+}
+
+.right {
+  position: relative;
+}
+
+.right::after {
+  content: "";
+  position: absolute;
+  right: 15%;
+  top: 5%;
+  height: 0%;
+  width: 8px;
+  background-color: #6d4ec3;
+  transition: all 0.3s linear;
+}
+.right::before {
+  content: "";
+  position: absolute;
+  right: 15%;
+  top: 105%;
+  width: 0%;
+  height: 8px;
+  background-color: #6d4ec3;
+  transition: all 0.3s linear;
+}
+
+.right:hover::after {
+  height: 100%;
+  transition: all 0.3s linear;
+}
+.right:hover::before {
+  width: 40%;
+  transition: all 0.3s 0.1s linear;
+}
+
+.product-list {
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 50px;
+}
+
+.card {
+  width: 100%;
+  height: 50vh;
+  border: 1px solid #6d4ec3;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.heart-click {
+  height: 15px;
+}
+
+.product-title {
+  text-align: center;
+  margin: 15px auto;
+  font-weight: 400;
+  width: 10%;
+  border-bottom: 3px solid #6d4ec3;
+}
+
+.newsletter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20vh;
+  background-color: #6d4ec3;
+  margin-top: 60px;
+}
+
+.newsletter input {
+  width: 50%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  border-radius: 4px 0 0 4px;
+}
+.newsletter button {
+  width: 10%;
+  padding: 10px;
+  border: none;
+  background-color: #af97cb;
+  border-radius: 0 4px 4px 0;
+  color: #fff;
+  cursor: pointer;
+}
+
+.footer {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #000;
+  color: #6d4ec3;
+}
+
+.footer-logo {
+  width: 150px;
+  height: 150px;
+}
+
+.privacy {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
