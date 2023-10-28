@@ -18,16 +18,27 @@ var typed = new Typed(".type", {
 
 const pop_up_cart = document.querySelector(".cart-item");
 const pop_up_wish = document.querySelector(".wish");
+const closeIcon = document.querySelector(".close");
 
 const heartIcon = document.querySelector(".heart");
 const cartIcon = document.querySelector(".cart");
 
 heartIcon.addEventListener("click", () => {
   pop_up_wish.classList.add("active");
+  closeIcon.classList.add("active");
 });
 
 cartIcon.addEventListener("click", () => {
   pop_up_cart.classList.add("active");
+  closeIcon.classList.add("active");
+  checkout.classList.add("active");
+});
+
+closeIcon.addEventListener("click", () => {
+  pop_up_cart.classList.remove("active");
+  pop_up_wish.classList.remove("active");
+  closeIcon.classList.remove("active");
+  checkout.classList.remove("active");
 });
 
 const list = document.querySelector(".list");
@@ -47,17 +58,20 @@ const addToCartArray = (id) => {
 
   if (includesItem) {
     includesItem.count = count;
+    includesItem.total = count * includesItem.price;
   } else {
     count = 0;
     cartArray.push({
       ...findItem,
       count: (count += 1),
+      total: count * findItem.price,
       _id: Math.random().toString(36).slice(2, 8),
     });
   }
 
-  removeFromWishList(id);
   renderPopUpCart();
+
+  renderCheckout();
 
   cart_count.textContent = cartArray.length;
 };
@@ -130,17 +144,26 @@ const renderPopUpCart = () => {
     pop_up_cart.innerHTML += `
 
         <div class="wish-card">
+        <div class="img-container">
         <img src=${c.img} alt="" class="pop-img" />
+        </div>
         <div class="content">
           <h4>Title: ${c.title}</h4>
           <p>Price: $${c.price}</p>
           
         </div>
         <div class="content">
-        <p>Total: $${c.price * c.count}</p>
-        <p>Quantity: ${c.count}</p>
-          </div>
+        <p>Total: <b>$${c.total}</b></p>
+        <div class="count-price">
+        <button class="dec" onclick=incrementAndDecrementPriceProduct("dec",${c.id}) >-</button>
+        <p><b>${c.count}</b></p>
+        <button class="inc" onclick=incrementAndDecrementPriceProduct("inc",${c.id}) >+</button>
+        </div>
+        </div>
+        <img src="images/delete.png" class="delete-bin" onclick=removeFromCartList(${c.id})>
       </div>
+
+
       
         `;
   });
@@ -174,7 +197,7 @@ const switchElements = (id) => {
   cart_count.textContent = cartArray.length;
   wish_count.textContent = wishArray.length;
   if (wishArray.length === 0) {
-    pop_up_wish.classList.remove("active");
+    pop_up_wish.innerHTML = `<h1>your list is Empty</h1>`;
   }
 };
 
@@ -182,6 +205,52 @@ const switchElements = (id) => {
 
 const removeFromWishList = (id) => {
   const el = wishArray.find((w) => w.id === id);
-  wishArray.splice(el, 1);
+  wishArray.splice(wishArray.indexOf(el), 1);
+};
+// ----------------------REMOVE ITEM FROM CART LIST-------------------
+
+const removeFromCartList = (id) => {
+  const el = cartArray.find((w) => w.id === id);
+  cartArray.splice(cartArray.indexOf(el), 1);
+  cart_count.textContent = cartArray.length;
+  renderCheckout();
+  renderPopUpCart();
 };
 
+// --------------INCREMENT COUNT AND UPDATE POP UP CART-------------------
+
+const incrementAndDecrementPriceProduct = (op, id) => {
+  const includesItem = cartArray.find((i) => i.id === id);
+
+  if (op === "inc") {
+    includesItem.count++;
+    includesItem.total += includesItem.price;
+  } else if (op === "dec" && includesItem.count > 1) {
+    includesItem.count--;
+    includesItem.total -= includesItem.price;
+  }
+
+  renderPopUpCart();
+  renderCheckout();
+};
+
+// -------------------CHECKOUT AND TOTAL PRICE------------
+const checkout = document.querySelector(".total-price");
+
+const renderCheckout = () => {
+  let total = 0;
+  cartArray.map((c) => {
+    total += c.total;
+    return total;
+  });
+
+  console.log(checkout);
+
+  checkout.innerHTML = `
+    
+    <h1>Products:${cartArray.length}</h1>
+    <p>total Price: $${total}</p>
+    <Button> Proceed to Checkout</button>
+    
+  `;
+};
