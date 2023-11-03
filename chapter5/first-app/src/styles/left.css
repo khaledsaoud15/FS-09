@@ -1,0 +1,22 @@
+.left-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  background-color: #4323e8;
+  color: #fff;
+  align-items: center;
+  padding: 15px;
+  height: 100%;
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.1), #5d44dd);
+}
