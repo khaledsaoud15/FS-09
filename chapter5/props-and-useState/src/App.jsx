@@ -1,93 +1,99 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import bg from "./bg.png";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
-  const [user, setuser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
+  const [range, setRange] = useState(5);
+  const [rc, setRc] = useState([]);
 
-  const handleSubmit = (e) => {
-    setuser({ ...user, [e.target.name]: e.target.value });
-  };
+  const [choices, setChoices] = useState([
+    "lowercase",
+    "uppercase",
+    "number",
+    "symbole",
+  ]);
+  const [randomise, setRandomise] = useState("");
 
-  const addUser = () => {
-    if (!user.firstName || !user.lastName || !user.email || !user.password) {
-      alert("All fields are required");
-    } else {
-      const findUser = users.find((u) => u.email === user.email);
-      if (findUser) {
-        alert("you already have a free trial");
-      } else {
-        setUsers([...users, user]);
-        alert("Success");
+  const symbols = "&é'#('ç_()àç=)é%$ù^^";
+  const L = "absdefghijklmnopqrstuvwxyz";
+  const U = L.toUpperCase();
+
+  const N = "0123456789";
+
+  const getRandomLSUN = () => {
+    let newL = "";
+    let newN = "";
+    let newU = "";
+    let newS = "";
+    let res = "";
+
+    if (rc.includes("uppercase")) {
+      for (let i = 0; i < range; i++) {
+        const randomU = U[Math.floor(Math.random() * U.length)];
+        newU += randomU;
+      }
+    }
+    if (rc.includes("lowercase")) {
+      for (let i = 0; i < range; i++) {
+        const randomL = L[Math.floor(Math.random() * L.length)];
+        newL += randomL;
+      }
+    }
+    if (rc.includes("symbole")) {
+      for (let i = 0; i < range; i++) {
+        const randomS = symbols[Math.floor(Math.random() * symbols.length)];
+        newS += randomS;
+      }
+    }
+    if (rc.includes("number")) {
+      for (let i = 0; i < range; i++) {
+        const randomN = N[Math.floor(Math.random() * N.length)];
+        newN += randomN;
       }
     }
 
-    setuser({
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    });
+    res = newL + newN + newS + newU;
+
+    let fRes = "";
+
+    for (let i = 0; i < range; i++) {
+      fRes += res[Math.floor(Math.random() * res.length)];
+    }
+
+    setRandomise(fRes);
+  };
+
+  const getValue = (val) => {
+    if (rc.includes(val)) {
+      rc.splice(rc.indexOf(val), 1);
+      setRc([...rc]);
+    } else {
+      rc.push(val);
+    }
   };
 
   return (
-    <Container bg={bg}>
-      <div className="left">
-        <h1>Learn to code by watching others</h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam ea illo
-          distinctio aliquam perferendis illum, consequuntur veritatis hic ad.
-          Asperiores.
-        </p>
-      </div>
-      <div className="right">
-        <button className="trial">
-          Try it free 7 days <span>then $20/mo. therafter</span>
-        </button>
-        <div className="inputs">
-          <input
-            type="text"
-            placeholder="First name"
-            name="firstName"
-            onChange={handleSubmit}
-            value={user.firstName}
-          />
-          <input
-            type="text"
-            placeholder="Last name"
-            name="lastName"
-            onChange={handleSubmit}
-            value={user.lastName}
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            name="email"
-            onChange={handleSubmit}
-            value={user.email}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            name="password"
-            onChange={handleSubmit}
-            value={user.password}
-          />
-          <button className="submit" onClick={addUser}>
-            Free Trial
-          </button>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
-            aliquam,<a href="">Terms and services</a>
-          </p>
-        </div>
-      </div>
+    <Container>
+      <Password>{randomise}</Password>
+      <Range>
+        <input
+          type="range"
+          min={5}
+          value={range}
+          max={10}
+          onChange={(e) => setRange(e.target.value)}
+        />
+      </Range>
+      <Choices>
+        {choices.map((c) => {
+          return (
+            <Choice>
+              <input type="checkbox" value={c} onClick={() => getValue(c)} />
+              <p>{c}</p>
+            </Choice>
+          );
+        })}
+      </Choices>
+      <Button onClick={getRandomLSUN}>Generate</Button>
     </Container>
   );
 };
@@ -95,95 +101,61 @@ const App = () => {
 export default App;
 
 const Container = styled.div`
-  display: flex;
-  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
-  translate: -50% -50%;
-  width: 80%;
-  height: 80vh;
-  background-color: #ff7978;
-  padding: 50px;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  gap: 15px;
+  background-color: #010a36;
+  color: #fff;
   border-radius: 4px;
-  background-image: url(${(props) => props.bg});
-  background-size: 100%;
-
-  .left {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    color: #fff;
-    h1 {
-      font-size: 3.5rem;
-    }
-    p {
-      line-height: 25px;
-    }
+`;
+const Password = styled.h1`
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
+  background-color: #050b2a;
+  color: #fff;
+  border-radius: 4px;
+`;
+const Range = styled.div`
+  width: 100%;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #050b2a;
+  border-radius: 4px;
+  input {
+    width: 80%;
+    accent-color: #fff;
   }
-
-  .right {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    height: 60vh;
-    gap: 15px;
-    .trial {
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      justify-content: center;
-      background-color: #3232d6;
-      cursor: pointer;
-      color: #fff;
-      font-weight: 700;
-      border: none;
-      border-radius: 4px;
-      span {
-        color: #c9c9c9;
-        font-weight: 400;
-      }
-    }
-  }
-
-  .inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 25px;
-    background-color: #fff;
-    height: 50vh;
-    border-radius: 4px;
-    input {
-      padding: 10px 25px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      outline: none;
-    }
-    .submit {
-      padding: 10px;
-      border: none;
-      background-color: #1ce91c;
-      border-radius: 4px;
-      cursor: pointer;
-      color: #fff;
-    }
-
-    p {
-      font-size: 12px;
-      margin-bottom: auto;
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      justify-content: center;
-      font-weight: 400;
-      a {
-        color: #ff7978;
-        text-decoration: none;
-        font-weight: 700;
-      }
-    }
-  }
+`;
+const Choices = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+`;
+const Choice = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+const Button = styled.button`
+  margin-top: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 70%;
+  margin-right: auto;
+  margin-left: auto;
+  background-color: #fff;
+  border: none;
+  font-weight: 700;
+  border-radius: 4px;
 `;
