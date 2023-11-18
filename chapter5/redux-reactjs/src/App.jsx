@@ -6,6 +6,9 @@ import { addTodo, deletetodo, updateTodo } from "./redux/todoSlice";
 const App = () => {
   const counter = useSelector((state) => state.count.counter);
   const todo = useSelector((state) => state.todos.todoArr);
+  const state = useSelector((state) => state);
+
+  console.log(state);
   const [input, setInput] = useState({
     todo: "",
     id: "",
