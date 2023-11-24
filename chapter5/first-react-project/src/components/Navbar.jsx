@@ -4,13 +4,15 @@ import logo from "../images/logo2.png";
 import user from "../images/user.svg";
 import cart from "../images/cart.png";
 import heart from "../images/heart.svg";
+import { useSelector } from "react-redux";
 const Navbar = () => {
-  const [active, setActive] = useState(false);
-  const [activeUser, setActiveUser] = useState(false);
+  const [active, setActive] = useState(true);
+  const [activeUser, setActiveUser] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const [menue, setMenue] = useState(false);
 
   const [title, setTitle] = useState("FS-09 SHOP");
+  const wishArr = useSelector((state) => state.wishlist.wishlist);
 
   useEffect(() => {
     document.title = title;
@@ -66,7 +68,7 @@ const Navbar = () => {
               <div className="cart">
                 <h2>Wishlist</h2>
                 <div className="num">
-                  <p>10</p>
+                  <p>{wishArr.length}</p>
                   <img src={heart} alt="" />
                 </div>
               </div>
