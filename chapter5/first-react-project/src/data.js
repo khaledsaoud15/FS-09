@@ -18,25 +18,6 @@ import coat2 from "./images/coat2.png";
 import hammer from "./images/hammer1.png";
 import hammer2 from "./images/hammer2.png";
 
-export const slider = [
-  {
-    title: "Smart watch",
-    img: smartwatch,
-  },
-  {
-    title: "Air Pods",
-    img: airpods,
-  },
-  {
-    title: "Washing Machine",
-    img: wash,
-  },
-  {
-    title: "Microwave",
-    img: micro,
-  },
-];
-
 export const cards = [
   {
     title: "Fast delivery",
@@ -58,10 +39,43 @@ export const cards = [
 
 export const items = [
   {
+    id: 10,
+    title: "Smart watch",
+    img: smartwatch,
+    color: ["gold", "silver", "white"],
+    category: ["men", "clothes", "accessories"],
+
+    slide: true,
+    price: 150,
+  },
+
+  {
+    id: 11,
+    title: "Washing Machine",
+    img: wash,
+    color: ["black", "grey"],
+    category: ["home", "clothes"],
+
+    slide: true,
+    price: 200,
+  },
+
+  {
+    id: 12,
+    title: "Microwave",
+    img: micro,
+    color: ["black", "grey"],
+    category: ["home", "food"],
+
+    slide: false,
+    price: 300,
+  },
+  {
     id: 1,
     title: "Nike sb Panda",
     price: 350,
     category: ["men", "shoes", "clothes"],
+    slide: true,
     img: panda,
     img2: panda2,
   },
@@ -71,6 +85,7 @@ export const items = [
     price: 700,
     color: ["brown", "grey", "black"],
     category: ["men", "clothes"],
+    slide: false,
     img: coat,
     img2: coat2,
   },
@@ -80,6 +95,7 @@ export const items = [
     price: 300,
     category: ["women", "makeup"],
     color: ["#ED0C0C", "#DD005C", "#AA2D88", "#684993", "#334F7D"],
+    slide: false,
     img: lip,
     img2: lip2,
   },
@@ -88,6 +104,7 @@ export const items = [
     title: "Hammer",
     price: 250,
     category: ["workshop", "work"],
+    slide: false,
     img: hammer,
     img2: hammer2,
   },

@@ -1,37 +1,24 @@
 import { useState } from "react";
 import styled from "styled-components";
 import refresh from "../images/refresh.png";
-import { useDispatch, useSelector } from "react-redux";
-import { addToWishList } from "../redux/likeSlice";
 import { NavLink } from "react-router-dom";
 
 const Products = ({ products }) => {
   const [search, setSearch] = useState("");
   const [filterProduct, setFilteredProduct] = useState(products);
 
-  const dispatch = useDispatch();
-
   const filtering = () => {
     if (search !== "") {
       const filter = products.filter(
         (f) =>
           f.category.includes(search) ||
-          f.title.toLowerCase() === search.toLowerCase()
+          f.title.toLowerCase().includes(search.toLowerCase())
       );
       setFilteredProduct(filter);
     } else {
       setFilteredProduct(products);
     }
     setSearch("");
-  };
-
-  const addToWish = (id) => {
-    const findItem = filterProduct.find((i) => i.id === id);
-    if (findItem) {
-      dispatch(addToWishList(findItem));
-    } else {
-      dispatch(addToWishList(findItem.id));
-    }
   };
 
   return (
@@ -68,9 +55,6 @@ const Products = ({ products }) => {
                 </Review>
               </CardReviews>
               <Buttons>
-                <ButtonCheck onClick={() => addToWish(data.id)}>
-                  Add To WishList
-                </ButtonCheck>
                 <NavLink to={`/product/${data.id}`}>
                   <ButtonCheck>Check Item</ButtonCheck>
                 </NavLink>
@@ -173,13 +157,17 @@ const Review = styled.p``;
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  width: 100%;
+  margin: 10px 0;
 `;
 const ButtonCheck = styled.button`
-  padding: 5px 15px;
+  padding: 5px 25px;
   border: none;
+  margin: 0 auto;
   background-color: #000;
   color: #fff;
   border-radius: 4px;
   cursor: pointer;
+  /* width: 100%; */
 `;

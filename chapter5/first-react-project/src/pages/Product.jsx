@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import { items } from "../data";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, updateCart } from "../redux/cartSlice";
+import { addToCart } from "../redux/cartSlice";
+import { addToWishList } from "../redux/likeSlice";
+import Navbar from "../components/Navbar";
 
 const Product = () => {
   const { id } = useParams();
@@ -11,8 +13,8 @@ const Product = () => {
   const [hovered, setHovered] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [colord, setColor] = useState("");
+  const check = useSelector((state) => state.wishlist.check);
 
-  const cart = useSelector(({ cart }) => cart.cart);
   const dispatch = useDispatch();
 
   const incAndDec = (op) => {
@@ -23,28 +25,29 @@ const Product = () => {
     }
   };
 
-  const addToCartArr = (id) => {
-    const item = cart.find((i) => i.id === id);
-
+  const addToCartArr = () => {
     const { color, ...others } = product;
 
-    if (!item) {
-      dispatch(
-        addToCart({
-          ...others,
-          color: colord,
-          quantity,
-          totalPrice: quantity * product.price,
-        })
-      );
-    } else {
-      dispatch(updateCart(id));
-    }
+    dispatch(
+      addToCart({
+        ...others,
+        color: colord,
+        quantity,
+        totalPrice: quantity * product.price,
+      })
+    );
 
     setQuantity(1);
   };
 
-  console.log(cart);
+  const addToWish = (id) => {
+    const findItem = items.find((i) => i.id === id);
+    if (findItem) {
+      dispatch(addToWishList(findItem));
+    } else {
+      dispatch(addToWishList(findItem.id));
+    }
+  };
 
   useEffect(() => {
     const item = items.find((i) => i.id === +id);
@@ -53,45 +56,51 @@ const Product = () => {
   }, []);
 
   return (
-    <Container>
-      <Img
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        src={hovered ? product.img2 : product.img}
-        alt=""
-      />
+    <>
+      <Navbar />
+      <Container>
+        <Img
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          src={product.img2 && hovered ? product.img2 : product.img}
+          alt=""
+        />
 
-      <Right>
-        <Title>{product.title}</Title>
-        <Desc>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis nisi
-          optio voluptas molestias hic. Magni architecto velit dolore commodi
-          culpa recusandae, iure assumenda. Animi, aspernatur in asperiores,
-          voluptates vel maxime placeat sit nostrum vero nesciunt possimus
-          voluptatem commodi corrupti accusantium?
-        </Desc>
-        <Pcontainer>
-          <ColorCntr>
-            {product.color && (
-              <>
-                {product.color.map((c) => (
-                  <Color c={c} onClick={() => setColor(c)}></Color>
-                ))}
-              </>
-            )}
-          </ColorCntr>
-          <Price>Price: {product.price}</Price>
-        </Pcontainer>
-        <Count>
-          <Button onClick={() => incAndDec("dec")}>-</Button>
-          <Counter>{quantity}</Counter>
-          <Button onClick={() => incAndDec("inc")}>+</Button>
-        </Count>
-        <ButtonAdd onClick={() => addToCartArr(product.id)}>
-          Add to Cart
-        </ButtonAdd>
-      </Right>
-    </Container>
+        <Right>
+          <Title>{product.title}</Title>
+          <Desc>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis nisi
+            optio voluptas molestias hic. Magni architecto velit dolore commodi
+            culpa recusandae, iure assumenda. Animi, aspernatur in asperiores,
+            voluptates vel maxime placeat sit nostrum vero nesciunt possimus
+            voluptatem commodi corrupti accusantium?
+          </Desc>
+          <Pcontainer>
+            <ColorCntr>
+              {product.color && (
+                <>
+                  {product.color.map((c) => (
+                    <Color c={c} onClick={() => setColor(c)}></Color>
+                  ))}
+                </>
+              )}
+            </ColorCntr>
+            <Price>Price: {product.price}</Price>
+          </Pcontainer>
+          <Count>
+            <Button onClick={() => incAndDec("dec")}>-</Button>
+            <Counter>{quantity}</Counter>
+            <Button onClick={() => incAndDec("inc")}>+</Button>
+          </Count>
+          <Buttons>
+            <ButtonAdd onClick={() => addToCartArr()}>Add to Cart</ButtonAdd>
+            <ButtonAdd2 onClick={() => addToWish(product.id)}>
+              {check === false ? "Add to Wishlist" : "Remove from Wishlist"}
+            </ButtonAdd2>
+          </Buttons>
+        </Right>
+      </Container>
+    </>
   );
 };
 
@@ -101,11 +110,13 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   padding: 40px;
+  justify-content: space-around;
 `;
 
 const Img = styled.img`
-  width: 35%;
+  width: 40%;
   height: 80vh;
+  filter: drop-shadow(8px 8px 2px rgba(0, 0, 0, 0.5));
 `;
 const Right = styled.div`
   width: 50%;
@@ -143,7 +154,16 @@ const ButtonAdd = styled.button`
   color: #fff;
   border: none;
   padding: 10px;
-  width: 20%;
+  width: 25%;
+`;
+const ButtonAdd2 = styled.button`
+  background-color: #ab8b67;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  width: 25%;
 `;
 const ColorCntr = styled.div`
   display: flex;
@@ -155,4 +175,10 @@ const Color = styled.div`
   height: 15px;
   border-radius: 50%;
   background-color: ${(props) => props.c};
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
 `;

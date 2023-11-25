@@ -1,12 +1,21 @@
-import React from "react";
-import { slider } from "../data";
+import React, { useEffect, useState } from "react";
+import { items } from "../data";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/autoplay";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
+  const [slider, setSlider] = useState([]);
+
+  useEffect(() => {
+    const slideItem = items.filter((i) => i.slide === true);
+
+    setSlider(slideItem);
+  }, []);
+
   return (
     <Container>
       <Swiper
@@ -32,7 +41,9 @@ const Header = () => {
                     Veritatis numquam ipsa neque iusto dicta, mollitia
                     voluptatum labore id. Veniam, atque.
                   </p>
-                  <button>SEE MORE</button>
+                  <NavLink to={`/product/${s.id}`}>
+                    <button>SEE MORE</button>
+                  </NavLink>
                 </div>
                 <img src={s.img} alt="" />
               </Card>

@@ -4,6 +4,7 @@ const like = createSlice({
   name: "wishlist",
   initialState: {
     wishlist: [],
+    check: false,
   },
 
   reducers: {
@@ -12,8 +13,10 @@ const like = createSlice({
       if (item) {
         const wishV2 = state.wishlist.filter((i) => i.id !== action.payload.id);
         state.wishlist = wishV2;
+        state.check = false;
       } else {
         state.wishlist.push(action.payload);
+        state.check = true;
       }
     },
   },

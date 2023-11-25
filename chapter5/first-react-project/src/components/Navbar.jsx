@@ -1,22 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import logo from "../images/logo2.png";
-import user from "../images/user.svg";
-import cart from "../images/cart.png";
+import userIcon from "../images/user.svg";
+import cartt from "../images/cart.png";
 import heart from "../images/heart.svg";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 const Navbar = () => {
-  const [active, setActive] = useState(true);
-  const [activeUser, setActiveUser] = useState(true);
+  const [active, setActive] = useState(false);
+  const [activeUser, setActiveUser] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [menue, setMenue] = useState(false);
 
+  const [newNotif, setNewNotif] = useState(0);
+  const [current, setCurrent] = useState(0);
+
   const [title, setTitle] = useState("FS-09 SHOP");
+
   const wishArr = useSelector((state) => state.wishlist.wishlist);
+  const cart = useSelector((state) => state.cart.cart);
+  const user = useSelector((state) => state.users.user);
 
   useEffect(() => {
     document.title = title;
   }, [title]);
+
+  useEffect(() => {
+    if (user) {
+      setActive(true);
+    } else {
+      setActive(false);
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   setCurrent(cart.length + wishArr.length);
+  // }, [cart.length, wishArr.length]);
+
+  // useEffect(() => {
+  //   setNewNotif(current - cart.length - wishArr.length);
+  // }, []);
+
+  // console.log(current);
 
   return (
     <Container>
@@ -28,9 +53,11 @@ const Navbar = () => {
       </Ham>
       <Content menue={menue}>
         <Links>
-          <a href="#" onClick={() => setTitle("Home")}>
-            Home
-          </a>
+          <NavLink to="/">
+            <a href="#" onClick={() => setTitle("Home")}>
+              Home
+            </a>
+          </NavLink>
           <a href="#" onClick={() => setTitle("About")}>
             About
           </a>
@@ -53,16 +80,20 @@ const Navbar = () => {
         {active ? (
           <User>
             <U onClick={() => setActiveUser(!activeUser)}>
-              <img src={user} alt="" />
-              <h1>Khaled</h1>
+              <img src={userIcon} alt="" />
+              <h1>{user.username}</h1>
             </U>
+            <NewNotif active={activeUser}>
+              <New>NEW</New>
+              <NumberN>{newNotif}</NumberN>
+            </NewNotif>
             <UserDropMenue active={activeUser}>
               <h1>Profile</h1>
               <div className="cart">
                 <h2>Bag</h2>
                 <div className="num">
-                  <p>3</p>
-                  <img src={cart} alt="" />
+                  <p>{cart.length}</p>
+                  <img src={cartt} alt="" />
                 </div>
               </div>
               <div className="cart">
@@ -77,8 +108,12 @@ const Navbar = () => {
           </User>
         ) : (
           <Buttons>
-            <button>Login</button>
-            <button>Register</button>
+            <NavLink to="/login">
+              <button>Login</button>
+            </NavLink>
+            <NavLink to="/register">
+              <button>Register</button>
+            </NavLink>
           </Buttons>
         )}
       </Content>
@@ -252,7 +287,7 @@ const UserDropMenue = styled.div`
   }
   top: 120%;
   left: -20%;
-  display: ${(props) => (props.active ? "none" : "flex")};
+  display: ${(props) => (props.active ? "flex" : "none")};
   flex-direction: column;
   padding: 10px;
   background-color: #fff;
@@ -315,4 +350,24 @@ const U = styled.div`
   align-items: center;
   gap: 5px;
   cursor: pointer;
+`;
+
+const NewNotif = styled.div`
+  position: absolute;
+  top: -70%;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  right: -50%;
+  padding: 5px;
+  border-radius: 20px;
+  background-color: red;
+  color: #fff;
+`;
+const New = styled.p`
+  font-size: 10px;
+  font-weight: 400;
+`;
+const NumberN = styled.p`
+  font-size: 12px;
 `;
