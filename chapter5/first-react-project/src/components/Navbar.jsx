@@ -7,7 +7,7 @@ import heart from "../images/heart.svg";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 const Navbar = () => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(true);
   const [activeUser, setActiveUser] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [menue, setMenue] = useState(false);
@@ -25,23 +25,13 @@ const Navbar = () => {
     document.title = title;
   }, [title]);
 
-  useEffect(() => {
-    if (user) {
-      setActive(true);
-    } else {
-      setActive(false);
-    }
-  }, []);
-
   // useEffect(() => {
-  //   setCurrent(cart.length + wishArr.length);
-  // }, [cart.length, wishArr.length]);
-
-  // useEffect(() => {
-  //   setNewNotif(current - cart.length - wishArr.length);
+  //   if (user) {
+  //     setActive(true);
+  //   } else {
+  //     setActive(false);
+  //   }
   // }, []);
-
-  // console.log(current);
 
   return (
     <Container>
@@ -81,7 +71,7 @@ const Navbar = () => {
           <User>
             <U onClick={() => setActiveUser(!activeUser)}>
               <img src={userIcon} alt="" />
-              <h1>{user.username}</h1>
+              <h1>khaled</h1>
             </U>
             <NewNotif active={activeUser}>
               <New>NEW</New>
@@ -89,19 +79,24 @@ const Navbar = () => {
             </NewNotif>
             <UserDropMenue active={activeUser}>
               <h1>Profile</h1>
+
               <div className="cart">
-                <h2>Bag</h2>
-                <div className="num">
-                  <p>{cart.length}</p>
-                  <img src={cartt} alt="" />
-                </div>
+                <Nlink to="/cart">
+                  <h2>Bag</h2>
+                  <div className="num">
+                    <p>{cart.length}</p>
+                    <img src={cartt} alt="" />
+                  </div>
+                </Nlink>
               </div>
               <div className="cart">
-                <h2>Wishlist</h2>
-                <div className="num">
-                  <p>{wishArr.length}</p>
-                  <img src={heart} alt="" />
-                </div>
+                <Nlink to="/wish">
+                  <h2>Wishlist</h2>
+                  <div className="num">
+                    <p>{wishArr.length}</p>
+                    <img src={heart} alt="" />
+                  </div>
+                </Nlink>
               </div>
               <button>Logout</button>
             </UserDropMenue>
@@ -307,10 +302,7 @@ const UserDropMenue = styled.div`
     &:hover {
       background-color: rgba(0, 0, 0, 0.1);
     }
-    h2 {
-      font-size: 14px;
-      cursor: pointer;
-    }
+
     img {
       height: 15px;
       width: 15px;
@@ -370,4 +362,25 @@ const New = styled.p`
 `;
 const NumberN = styled.p`
   font-size: 12px;
+`;
+
+const Nlink = styled(NavLink)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px;
+  border-radius: 4px;
+  width: 90%;
+  cursor: pointer;
+
+  h2 {
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+  }
+  img {
+    height: 15px;
+    width: 15px;
+  }
 `;

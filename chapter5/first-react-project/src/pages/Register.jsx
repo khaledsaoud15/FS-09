@@ -5,13 +5,15 @@ import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Register = () => {
-  const navigate = useNavigate();
-  const [usersArr, setUsersArr] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+  const dispatch = useDispatch();
   const [user, setUser] = useState({
     username: "",
     email: "",
     password: "",
   });
+
+  const users = useSelector(({ users }) => users.users);
 
   const onchange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -23,16 +25,15 @@ const Register = () => {
       return;
     }
 
-    const findUser = usersArr.find((u) => u.email === user.email.trim());
+    const findUser = allUsers.find((u) => u.email === user.email.trim());
 
     if (findUser) {
       alert("user already exist please login");
     } else {
       const newUser = { ...user, id: Math.random().toString(36).slice(2, 8) };
-      setUsersArr((prev) => [...prev, newUser]);
-      setInterval(() => {
-        navigate("/");
-      }, 2000);
+
+      setAllUsers((prev) => [...prev, newUser]);
+      sessionStorage.setItem("users", JSON.stringify([...allUsers, newUser]));
     }
 
     setUser({
@@ -41,13 +42,6 @@ const Register = () => {
       password: "",
     });
   };
-
-  console.log(usersArr);
-
-  useEffect(() => {
-    if (usersArr.length > 0)
-      localStorage.setItem("users", JSON.stringify(usersArr));
-  }, [usersArr]);
 
   return (
     <Container>

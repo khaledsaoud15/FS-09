@@ -33,6 +33,7 @@ const Product = () => {
         ...others,
         color: colord,
         quantity,
+        _id: Math.random().toString(36).slice(2, 8),
         totalPrice: quantity * product.price,
       })
     );

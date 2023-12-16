@@ -20,11 +20,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    const allUsers = JSON.parse(localStorage.getItem("users"));
+    const allUsers = JSON.parse(sessionStorage.getItem("users"));
     if (allUsers) {
       setUsersStorage(allUsers);
     }
-    console.log(allUsers);
   }, []);
 
   const loginUser = (e) => {
