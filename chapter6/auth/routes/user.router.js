@@ -18,7 +18,7 @@ const login = async (req, res) => {
 
   const accessToken = jwt.sign(
     {
-      user: user,
+      user,
     },
     process.env.JWT_KEY
   );
@@ -37,7 +37,18 @@ const update = async (req, res) => {
   await User.findByIdAndUpdate(id, { $set: req.body });
   try {
     res.status(200).json("updated");
-  } catch (err) {}
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-module.exports = { register, login, update };
+const deletUser = async (req, res) => {
+  await User.findByIdAndDelete(req.params.id);
+  try {
+    res.status(200).json("deleted");
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+module.exports = { register, login, update, deletUser };
